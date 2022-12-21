@@ -1,0 +1,143 @@
+#%RAML 1.0
+title: Okta-SystemAPI
+description: "This API is used to create OKTA registeration"
+mediaType: application/json
+version: v1
+protocols:
+  - HTTPS
+  - HTTP
+uses:
+  okta-library: /exchange_modules/0bb8c408-0feb-47de-9914-f4d45820596c/okta-datatype-library/1.0.4/okta-datatype-library.raml
+
+traits:
+  error : !include exchange_modules/0bb8c408-0feb-47de-9914-f4d45820596c/errorcodes/1.0.0/errorcodes.raml
+
+/users?activate=true:
+  post:
+    headers:
+      Content-Type:
+      Accept: 
+      Authorization: 
+    description: "Creating user with password"
+    is:
+      - error
+    body:
+       application/json:
+         type:  okta-library.createuser
+    responses:
+      201:
+        description: "Success response of create user"
+        body:
+          application/json:
+            type : okta-library.createuser
+
+/users/{userid}/credentials/change_password:
+  post:
+    headers:
+      Content-Type:
+      Accept: 
+      Authorization: 
+    description: "Change password of user"
+    is:
+      - error
+    body:
+      application/json: 
+       type: okta-library.changepassword
+    responses:
+      201:
+        description: "Success response of change password"
+        body:
+          application/json:
+            type: okta-library.changepassword
+
+/authn/recovery/password:
+  post:
+    headers:
+      Content-Type:
+      Accept: 
+      Authorization: 
+    description: "Recovering password with email"
+    is:
+      - error
+    body:
+        application/json:
+         type: okta-library.forgetpassword
+    responses:
+      201:
+        description: "Success response of recovery password"
+        body:
+          application/json:
+            type: okta-library.forgetpassword
+
+/authn:
+  post:
+    headers:
+      Accept:
+      Content-Type:
+    description: "Primary Authentication"
+    is:
+      - error
+    body:
+      application/json:
+        type: okta-library.primaryauthentication
+    responses:
+      201:
+        description: "Success response of primary Authentication"
+        body:
+          application/json:
+            type: okta-library.primaryauthentication
+
+/sessions?additionalFields=cookieToken:
+  post:
+    headers:
+      Content-Type:
+      Accept: 
+      Authorization: 
+    description: "Creating session"
+    is:
+      - error
+    body:
+      application/json:
+        type: okta-library.createsession
+    responses:
+      201:
+        description: "Success response of create session"
+        body:
+          application/json:
+            type: okta-library.createsession
+
+/sessions/{userid}:
+  get:
+    description: "Validating session which is created"
+    is:
+      - error
+    responses:
+      200:
+       description: "Success response of validate session"
+       body:
+          application/json: 
+           type: string
+           example : "Message: Session is validated"
+          
+
+  delete:
+    headers:
+      Content-Type:
+      Accept: 
+      Authorization: 
+    description: "Clear session"
+    is:
+      - error
+    responses:
+      202:
+        description: "Success response of clear session"
+        body:
+          application/json:
+            type: string
+            example: "Message: Session is deleted"
+
+
+  
+
+
+        

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="oktaflows-test-suite.xml" />
+	<munit:test name="oktaflows-test-suite-createuserFlowTest" doc:id="4058ed83-1a45-4c7e-8a7c-f8471aec16df" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="406104bb-a94e-4ae6-8151-d04c65caa4d7" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request call to create user" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="d32ce054-cddb-4373-be97-340f700c331b" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/v1/users?activate=true" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[{&#10;  &quot;profile&quot;: {&#10;    &quot;firstName&quot;: &quot;toer&quot;,&#10;    &quot;lastName&quot;: &quot;pop&quot;,&#10;    &quot;email&quot;: &quot;toierq@example.com&quot;,&#10;    &quot;login&quot;: &quot;toierq@example.com&quot;&#10;  },&#10;  &quot;credentials&quot;: {&#10;    &quot;password&quot;: {&#10;      &quot;value&quot;: &quot;Tat@euj67543&quot;&#10;    },&#10;    &quot;recovery_question&quot;: {&#10;      &quot;question&quot;: &quot;Who's a major player in the cowboy scene?&quot;,&#10;      &quot;answer&quot;: &quot;Annie&quot;&#10;    }&#10;  }&#10;}&#10;]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to createuserFlow" doc:id="334894a6-c82c-48b9-a9ea-eeab0eebc76d" name="createuserFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="3933c82a-9cfe-4056-b20c-d327a7fa96c1" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="oktaflows-test-suite-changepasswordFlowTest" doc:id="01078fcf-3259-4935-af07-b2a2dab87ded" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="9cfc784d-b3b3-481a-88ee-26843c817805" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Requesting change password url" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="ff3269c9-6eac-49eb-8c11-3f35f22e849f" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/v1/users/{userid}/credentials/change_password" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "oldPassword": {&#10;    "value": "Wat@uj67543"&#10;  },&#10;  "newPassword": {&#10;    "value": "New@uj67543"&#10;  }&#10;}&#10;]' />
+					<munit-tools:attributes value='#[{uriParams: { userid: "00u7j9i8w8AWoXCoi5d7" }}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to changepasswordFlow" doc:id="380f8195-33a5-48d6-b6a1-f58020f6f70d" name="changepasswordFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="9de6f92b-d7a0-4636-862b-489c58e469c7" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="oktaflows-test-suite-createsessionFlowTest" doc:id="df182f03-09dc-4e38-be77-806fa0d3183e" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="ce42e45b-fd1f-4e72-a2d9-55fc01a4c5bb" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request create session" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="4f90b2da-77c3-4549-8190-110f8b70ddbf" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/v1/sessions?additionalFields=cookieToken" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "sessionToken": "20111ql0QdAaePdvUHvxqOqKGjyaBH8WrdgrfCZIHT6ZwWNoZACcJ7f"&#10;}&#10;]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to createsessionFlow" doc:id="ca45a7d9-643f-4e0b-a510-da674bf49b6b" name="createsessionFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="baa6ce5c-cd3a-40f1-b1ce-92015280f0e9" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="oktaflows-test-suite-deletesessionFlowTest" doc:id="d7744d6f-27b3-4b83-b12c-d802698552b9" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="89181c46-fc1a-4f56-8c6a-9a4147079e24" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="DELETE" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request call to delete session" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="9ad5d6bb-ef6a-4c1f-8e4f-48bdaee9db46" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/v1/sessions/{userid}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to deletesessionFlow" doc:id="267b92e9-03da-4bc7-b304-2b9833c3f83d" name="deletesessionFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="863c3504-2d8d-433d-b4fc-13a2214abbec" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="oktaflows-test-suite-forgetpasswordFlowTest" doc:id="66cf4448-1dc1-469e-bb06-6bee7fc38f9e" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="542580d9-92c9-4bf8-8b39-152ad3b021c0" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request to forget password" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="b5ec9326-ee0c-4368-a3db-dfc21bd78f8c" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/v1/authn/recovery/password" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "username": "waterq@example.com",&#10;  "factorType": "EMAIL",&#10;  "relayState": "/myapp/some/deep/link/i/want/to/return/to"&#10;}&#10;]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to forgetpasswordFlow" doc:id="e0eb5827-b81f-47a1-9bb0-a7247354f13b" name="forgetpasswordFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="7739439f-b7d8-4063-b044-5b813f465bcb" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="oktaflows-test-suite-createauthenticationFlowTest" doc:id="f9ad877f-cc3e-4ad2-86fd-d6be78351c00" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="07250100-870f-4bf4-84e1-5b98ed796b21" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request to create authentication" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="ace652fc-b22d-4987-b97f-5495d65e41eb" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/v1/authn" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "username": "toierq@example.com",&#10;  "password": "Tat@euj67543",&#10;  "options": {&#10;    "multiOptionalFactorEnroll": true,&#10;    "warnBeforePasswordExpired": true&#10;  }&#10;}&#10;]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to createauthenticationFlow" doc:id="af8f4d61-af67-4fee-9e7b-ae533983bde2" name="createauthenticationFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="b1e9fb03-91c2-4246-886c-c12f2c2c45d9" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="oktaflows-test-suite-validatesessionFlowTest" doc:id="d77126c2-9869-4fe9-8cdc-677f6a2ff0db" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="567322c5-a58d-4fe0-90d2-114095a52a63" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request to validate session" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="e33f9310-224d-4484-bbe5-8f5df7e37d06" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="/v1/sessions/{userid}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:attributes value='#[{uriParams: {userid: "102G78rNSrfRGehMaqK6loxjg"}}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to validatesessionFlow" doc:id="59fbdadd-f903-4422-89b7-7ff7e6a319cc" name="validatesessionFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="9ddef7a7-6478-4f1b-959d-c3a5fc18e959" actual="#[payload]" expected="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>

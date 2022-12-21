@@ -1,0 +1,12 @@
+service:
+ password: '![ptWVMN1TU+NIINhvNlMlUA==]'
+ 
+ 
+json:
+ logger:
+  application:
+   name: "okta-sapi"
+   version: "1.0"
+   
+mule:
+ env: "dev"

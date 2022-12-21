@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow"
+	xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd
+http://www.mulesoft.org/schema/mule/servicenow http://www.mulesoft.org/schema/mule/servicenow/current/mule-servicenow.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="d08c1d40-ae31-424d-8cbd-17cf3e625f3a" basePath="/api">
+		<http:request-connection protocol="HTTPS" host="dev-75884940.okta.com"/>
+	</http:request-config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="13a759b4-4750-40ff-a610-5df41d20d003" >
+		<http:listener-connection host="localhost" port="8082"/>
+	</http:listener-config>
+	<apikit:config outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" doc:name="Router" doc:id="8c5d35a8-51b7-45dd-898d-38c176b94c19" name="okta-systemapi-config" api="okta-systemapi.raml" />
+	<json-logger:config name="JSON_Logger_Config" doc:name="JSON Logger Config" doc:id="7030ab33-c3b2-41f5-841d-ae972a6fadff" environment="${mule.env}" />
+
+	<servicenow:config name="ServiceNow_Config" doc:name="ServiceNow Config" doc:id="59e8ec82-2c1e-4d0c-9efa-8a6dda5600e4" >
+		<servicenow:basic-connection username="admin" password="${secure::service.password}" serviceAddress="https://dev144027.service-now.com" serviceNowVersion="PARIS" />
+	</servicenow:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="34377dac-cf85-480b-92dd-366abad075b3" file="${mule-env}-config.yaml" />
+	<global-property doc:name="Global Property" doc:id="2d43edcc-f70c-4eb2-91b2-5819c0563da8" name="mule-env" value="dev" />
+	<global-property doc:name="Global Property" doc:id="fae8a1f6-da5d-47a0-9e40-323a5e013dca" name="key" value="servicenow" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="b2d2f3d5-d31e-40e5-9e6e-3c2531f80346" file="${mule-env}-config.yaml" key="${key}" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+</mule>

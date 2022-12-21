@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="okta-systemapi-test-suite.xml" />
+	<munit:test name="okta-systemapi-test-suite-okta-systemapi-mainTest" doc:id="85485f0c-0928-43dc-a448-b6ab5271ef98" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="3e4223a1-b0d3-4db8-a895-a5593a90968b" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="okta-systemapi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to okta-systemapi-main" doc:id="32e155a1-feaf-4b44-bb38-2c7558d5f357" name="okta-systemapi-main"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="okta-systemapi-test-suite-okta-systemapi-consoleTest" doc:id="ce973b2a-fd7b-4e58-9caf-1064b1de43fc" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="cb30c82d-77bc-4a63-9f86-5825df1f10fd" processor="apikit:console">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="okta-systemapi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to okta-systemapi-console" doc:id="5ce58acc-5c83-4087-a7b0-01a27d0e5607" name="okta-systemapi-console"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="okta-systemapi-test-suite-delete:\sessions\(userid):okta-systemapi-configTest" doc:id="16c5d8bd-e848-4d25-b565-1a79c9ad43cc" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="2d5de83c-ab55-41bd-baa5-e90dddb92cdd" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Flow Reference to deletesessionFlow" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="789116f4-8468-4f1c-b6c2-a296d395be65" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="deletesessionFlow" attributeName="name" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to delete:\sessions\(userid):okta-systemapi-config" doc:id="d9739219-dfd6-4e98-8d17-6526c983dc45" name="delete:\sessions\(userid):okta-systemapi-config"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="okta-systemapi-test-suite-get:\sessions\(userid):okta-systemapi-configTest" doc:id="c444aad1-c9a3-4c17-87a5-eaeec4d5e7e9" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="77d33600-c1a1-44bf-a5e5-c2dd7e070590" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Flow Reference to validatesessionFlow" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="15799f10-acd9-453b-b614-149edc639082" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="validatesessionFlow" attributeName="name" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\sessions\(userid):okta-systemapi-config" doc:id="61642236-886f-44e5-a346-25a14e7531ad" name="get:\sessions\(userid):okta-systemapi-config"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="okta-systemapi-test-suite-post:\authn\recovery\password:application\json:okta-systemapi-configTest" doc:id="b35e1fdb-a774-4ba2-91cc-7f63e771a15b" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="efdf62ec-8ac5-4115-a5c2-10d365befb49" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Flow Reference to forgetpasswordFlow" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="bd650145-7c86-4899-b8a6-a6c3b83976f6" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="forgetpasswordFlow" attributeName="name" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\authn\recovery\password:application\json:okta-systemapi-config" doc:id="b4fdcee4-7daa-4f15-8407-e1aa299bb534" name="post:\authn\recovery\password:application\json:okta-systemapi-config"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="okta-systemapi-test-suite-post:\authn:application\json:okta-systemapi-configTest" doc:id="770251be-2ce3-4671-9579-0e567feda129" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="a5583918-6543-416e-a40a-59934e546dfa" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Flow Reference to createauthenticationFlow" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="0ffcd44b-537b-4b3e-967d-a322a398c515" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="createauthenticationFlow" attributeName="name" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\authn:application\json:okta-systemapi-config" doc:id="7c1d9a51-b83a-4420-9510-947887d9f837" name="post:\authn:application\json:okta-systemapi-config"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="okta-systemapi-test-suite-post:\sessions?additionalFields=cookieToken:application\json:okta-systemapi-configTest" doc:id="cdf2599a-43aa-4e32-b90d-b4de43b5da61" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="facd9f0a-2aa2-4060-8dfa-a08eeac5688e" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Flow Reference to createsessionFlow" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="da4d55b7-df98-4070-bf28-cbf5e572bfa9" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="createsessionFlow" attributeName="name" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\sessions?additionalFields=cookieToken:application\json:okta-systemapi-config" doc:id="9a0508f4-e031-4ebc-8d8f-100d71a86340" name="post:\sessions?additionalFields=cookieToken:application\json:okta-systemapi-config"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="okta-systemapi-test-suite-post:\users\(userid)\credentials\change_password:application\json:okta-systemapi-configTest" doc:id="428a0ae1-e1c5-4e86-9123-587a2e620961" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c6164342-73a5-48e5-9fdc-026305d71b46" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Flow Reference to changepasswordFlow" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="85a71f6d-6bf3-4f4e-a8c1-29ba5675ec02" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="changepasswordFlow" attributeName="name" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\users\(userid)\credentials\change_password:application\json:okta-systemapi-config" doc:id="62abceaa-4863-47cf-919d-5459cd4cbf7b" name="post:\users\(userid)\credentials\change_password:application\json:okta-systemapi-config"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="okta-systemapi-test-suite-post:\users?activate=true:application\json:okta-systemapi-configTest" doc:id="2500dfb1-08e9-4022-ab74-997cba69aa35" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="b164cc10-68de-4de8-a689-baa4282f2046" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Flow Reference to createuserFlow" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="0628ee96-76bb-4b4a-8304-b6eba7e7bd4d" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="createuserFlow" attributeName="name" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\users?activate=true:application\json:okta-systemapi-config" doc:id="2d4a381b-4a71-4b3b-b137-4dfbd3e88089" name="post:\users?activate=true:application\json:okta-systemapi-config" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="okta-systemapi-test-suite-okta-systemapi-consoleTest1" doc:id="13c0700f-00bb-4034-a108-b44e1de5540f" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="f22b084b-28ec-486e-af99-a990c3786473" processor="apikit:console">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="okta-systemapi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="ANY" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="aee91724-87a7-469b-924a-951f00b2e7d1" >
+				<flow-ref doc:name="Flow-ref to okta-systemapi-console" doc:id="2a4d03a1-bee2-4aaf-9391-5505b8f3c5fc" name="okta-systemapi-console" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="0ef5f0d3-1c7b-4f5b-86a1-a4c0934526d1" >
+						<logger level="INFO" doc:name="Logger" doc:id="00a2bf6c-e049-434a-8012-f33bff953e6c" message="Continue"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="cebc23c6-3970-408c-ae18-fa3151a1a70b" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>
